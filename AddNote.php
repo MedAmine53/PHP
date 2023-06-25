@@ -1,4 +1,5 @@
 <?php
+session_start();
 $note = "";
 $errNote ="";
 $errGenerale  = "" ;
@@ -19,10 +20,20 @@ if(isset($_GET["note"])){
   $note = $_GET["note"];
   $errNote = validateNote($note);
 
-  if(empty($errNote)){
-    $notes = [$note];
-    print_r($notes);
+  if($errNote == ""){
+    if (!isset($_SESSION["notes"])) {
+      $_SESSION["notes"] = array();
   }
+
+  array_push($_SESSION["notes"], $note);
+
+  echo "<table>";
+  echo "<tr><th>Notes</th></tr>";
+  foreach ($_SESSION["notes"] as $note) {
+      echo "<tr><td>$note</td></tr>";
+  }
+  echo "</table>";
+}
 }
 ?>
 
@@ -32,7 +43,7 @@ if(isset($_GET["note"])){
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>Notes</title>
 </head>
 
 <body>
