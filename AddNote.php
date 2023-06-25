@@ -3,31 +3,28 @@ $note = "";
 $errNote= "";
 $errGenerale= "";
 
-if(isset($_GET["note"])){
+if(isset($_GET["note"]))
+{
+  $note = $_GET["note"];
+  
   if($note == ""){
-    $errNote="la note est obligatoire";
+    $errNote = "La note est obligatoire";
   }
-
-  if(!is_numeric($note)){
-    $errNote= "la note doit etre numerique";
+  elseif(!is_numeric($note)){
+    $errNote = "La note doit être numérique";
   }
-
-  if( $note < 0 || $note > 20 ){
-    $errNote = "la note doit etre comprise entre 0 et 20 ";
+  elseif($note > 20 || $note < 0){
+    $errNote = "La note doit être comprise entre 0 et 20";
   }
 
   if($errNote == ""){
-    $notes = array()
+    $notes = array();
     array_push($notes, $note);
+
+    print_r($notes);
   }
-
-
 }
-?> 
-
-
-
-
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -38,9 +35,9 @@ if(isset($_GET["note"])){
 </head>
 <body>
     <form action="#" method="GET">
-      <input type="number" name= "note" required value="<?= $note ?>">
-        <p><?=  $errNote ?></p>
+      <input type="number" name="note" required value="<?= htmlspecialchars($note) ?>">
+      <p><?=  $errNote ?></p>
       <input type="submit">
     </form>
 </body>
-</html> 
+</html>
