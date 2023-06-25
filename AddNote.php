@@ -1,26 +1,25 @@
 <?php
 $note = "";
-$errNote = "";
-$errGenerale = "";
+$errNote ="";
+$errGenerale  = "" ;
 
-function validateNote($note)
-{
-  if ($note === "") {
-    return "La note est obligatoire";
-  } elseif (!is_numeric($note)) {
-    return "La note doit être numérique";
-  } elseif ($note > 20 || $note < 1) {
-    return "La note doit être comprise entre 1 et 20";
+function validateNote($note){
+  if ($note === ""){
+    return "la note est obligatoire";
+  }elseif (!is_numeric($note)){
+    return "la note doit etre numeric";
+  }elseif($note < 0 || $note > 20){
+    return "la doit doit etre comprise entre 0 et 20 ";
   }
 
   return "";
 }
 
-if (isset($_GET["note"])) {
+if(isset($_GET["note"])){
   $note = $_GET["note"];
   $errNote = validateNote($note);
 
-  if (empty($errNote)) {
+  if(empty($errNote)){
     $notes = [$note];
     print_r($notes);
   }
